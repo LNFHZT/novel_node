@@ -1,12 +1,21 @@
+let config = require('./config/config');
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 const app = express();
-const Code = require('./util/code')
-let config = require('./config')
-
+const Code = require('./util/code');
 // app.use(express.static("webapp"));
 app.use(express.static(path.join(__dirname, 'webapp')));
 // app.use('/', express.static(path.join(__dirname, '/webapp/app')));
+
+app.use(session({
+    secret :  'secret', // 对session id 相关的cookie 进行签名
+    resave : true,
+    saveUninitialized: false, // 是否保存未初始化的会话
+    cookie : {
+        maxAge : 1000 * 60 * 30, // 设置 session 的有效时间，单位毫秒
+    },
+}));
 
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", '*')
@@ -21,14 +30,10 @@ app.all('*', function (req, res, next) {
 })
 
 
-// app.get('/webapp', (req, res) => {
-//     // res.redirect('http://localhost:3000/webapp/admin');
-//     res.send('hello word')
-// })
-
 config.routeConfig.forEach(item => {
     app.use(item.apititle, item.routeExample);
 });
+
 /**
  * 错误处理机制
  */

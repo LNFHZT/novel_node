@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "mysql": "^2.15.0",
     "path": "^0.12.7"
   },

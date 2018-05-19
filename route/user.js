@@ -40,5 +40,9 @@ router.post('/login', (req, res, next) => {
         },
     }, req, res);
     userIMP.loginCheck(account, password)
+        .then( data =>{
+            
+        })
+        
 });
 module.exports = router;

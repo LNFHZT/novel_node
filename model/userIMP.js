@@ -1,5 +1,6 @@
-let conn = require('../dbc/dbc')
-
+const Code = require('../util/code');
+const Mode = require('../util/model');
+const conn = require('../dbc/dbc');
 class UserIMP {
     constructor(obj) {
 
@@ -8,7 +9,7 @@ class UserIMP {
      * 查询所有用户表
      */
     queryUserAll() {
-        return conn.query('select * from user')
+        return Mode.getData('select * from user')
     }
     /**
      * 
@@ -16,7 +17,17 @@ class UserIMP {
      * @param {String} password 密码
      */
     loginCheck(account, password) {
-        return conn.query("SELECT * from `user` WHERE account='" + account + "' and passwd='" + password + "' ")
+        return Mode.getData({
+            sql: "SELECT * from `user` WHERE account='" + account + "' and passwd='" + password + "' ",
+            isFill: true,
+            nullData(data) {
+                data = new Code({
+                    code: 2000
+                }).return
+                return data;
+            }
+        })
+        return conn.query()
     }
 }
 
