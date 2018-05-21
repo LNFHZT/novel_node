@@ -27,7 +27,12 @@ const codeMap = {
         // 业务错误
         2000: {
             code: 2000,
-            msg: "登入失败，账号或密码为空",
+            msg: "登入失败，账号或密码错误",
+            success: false,
+        },
+        2001: {
+            code: 2001,
+            msg: "session过期，请重新登入",
             success: false,
         }
     }

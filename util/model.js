@@ -9,15 +9,17 @@ class Mode {
      * 拿数据库数据统一封装，预处理
      * @param {Object} obj  <Object/String>
      * @param {String} obj <Object/String>
+     * @param {Array} params <Array> 替换sql语句中的问号
      * @param {Boolean} isFill <Boolean> 默认false obj.isFill将空数据变为运行在catch中
      * @param {Function} nullData <Function> obj.nullData 空数据处理
      * @param {Function} success <Function> obj.preprocessing 正常数据处理
      * @example nullData(obj) {return obj;}
      * @example success(obj) {return obj;}
      */
-    getData(obj) {
+    query(obj) {
         let options = {
             isFill: false,
+            params: [],
             nullData(obj) {
                 return obj;
             },
@@ -40,26 +42,20 @@ class Mode {
                 resolve([]);
             })
         }
-        return new Promise(() => {
-            conn.query(sql, (err, result) => {
+        return new Promise((resolve, reject) => {
+            conn.query(sql, obj.addSqlParams, (err, result) => {
                 //  统一错误处理
                 if (err) {
-                    try {
-                        reject(new Code({
-                            code: Code.codeMap().DATABASE_ERROR,
-                        }).return);
-                        throw new Error(err);
-                    } catch (res) {
-                        throw new Error(res);
-                    }
+                    console.error(err);
+                    reject(new Code({
+                        code: Code.codeMap().DATABASE_ERROR,
+                    }).return);
                     return;
                 }
                 result = obj.nullData(result);
                 if (obj.isFill) {
-                    if (result.length) {
-                        reject(reject(new Code({
-                            code: Code.codeMap().DATABASE_ERROR,
-                        }).return));
+                    if (!result.length) {
+                        reject(result);
                         return;
                     }
                 }

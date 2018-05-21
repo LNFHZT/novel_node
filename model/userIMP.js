@@ -13,12 +13,13 @@ class UserIMP {
     }
     /**
      * 
-     * @param {String} account 账号
-     * @param {String} password 密码
+     * @param {String} account <String> 账号
+     * @param {String} password <String> 密码
      */
     loginCheck(account, password) {
-        return Mode.getData({
-            sql: "SELECT * from `user` WHERE account='" + account + "' and passwd='" + password + "' ",
+        return Mode.query({
+            sql: "SELECT * from `user` WHERE account= '" + account + "' and passwd= '" + password + "' ",
+            // params: [account, password],
             isFill: true,
             nullData(data) {
                 data = new Code({
@@ -27,7 +28,17 @@ class UserIMP {
                 return data;
             }
         })
-        return conn.query()
+    }
+    /**
+     * 
+     * @param {Array} obj 
+     */
+    regist(obj) {
+        // VALUES 
+        return Mode.query({
+            sql: 'insert into user (account,passwd,nicName) values (?,?,?)',
+            params: obj,
+        })
     }
 }
 
