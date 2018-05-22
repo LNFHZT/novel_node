@@ -1,50 +1,30 @@
 const express = require('express');
-const userIMP = require('../model/userIMP');
-const Code = require('../util/code');
-const AueryData = require('../util/aueryData');
-const Util = require('../util/util');
+const userIMP = require('../../model/userIMP');
+const Code = require('../../util/code');
+const AueryData = require('../../util/aueryData');
+const Util = require('../../util/util');
 let router = express.Router();
-//  /api/user
 
-/**
- * 
- * @url /check/get/all/user
- */
-router.get('/check/get/all/user', (req, res, next) => {
-    userIMP.queryUserAll()
-        .then((result) => {
-            res.json(new Code({
-                code: Code.codeMap().OK,
-                data: {
-                    resultset: result,
-                }
-            }).return)
-        })
-        .catch((err) => {
+// /api/admin/base
 
-        });
-});
-/**
- * @param account <String> 账号
- * @param password <String> 账号 
- * @url /login
- */
 router.post('/login', (req, res, next) => {
     AueryData.getParam({
             account: {
                 type: 'String',
                 must: true,
             },
-            password: {
+            passwd: {
                 type: 'String',
                 must: true,
             },
         }, req, res)
         .then((data) => {
-            return userIMP.loginCheck(data.account, data.password)
+            return userIMP.loginCheck(data.account, data.passwd)
         })
         .then(data => {
-            data.userId = Util.encryptId(data.userId);
+            if (data.userId) {
+                data.userId = Util.encryptId(data.userId);
+            }
             req.session.user = {
                 userId: data.userId,
             }
@@ -53,7 +33,6 @@ router.post('/login', (req, res, next) => {
                 data: {
                     data: data,
                 },
-                msg: '登入成功',
             }).return)
         })
         .catch(data => {
@@ -64,28 +43,49 @@ router.post('/login', (req, res, next) => {
             }
             res.json(data);
         })
+})
 
-});
-
-router.post('/ordinary/regist', (req, res, next) => {
+router.post('/regist', (req, res, next) => {
     AueryData.getParam({
             account: {
                 type: 'String',
                 must: true,
             },
-            password: {
+            passwd: {
                 type: 'String',
                 must: true,
             },
             nicName: {
                 type: 'String',
+                must: false,
             }
         }, req, res)
-        .then(data => {
+        .then((data) => {
+            let arr = [];
+            if (!data.nicName) {
+                data.nicName = 'ADMIN'
+            }
+            let timer = new Date().getTime();
+            data.createTime = timer;
+            data.updateTime = timer;
             return userIMP.regist(data)
         })
         .then(data => {
-
+            console.log(data);
+            if (!data.insertId) {
+                res.json(new Code({
+                    code: Code.codeMap().OK,
+                }).return)
+            } else {
+                res.json(new Code({
+                    code: 1001,
+                    msg: '数据库插入失败'
+                }).return)
+            }
+        })
+        .catch(data => {
+            res.json(data);
         })
 })
+
 module.exports = router;

@@ -7,11 +7,12 @@ create table user(
 	sex int(1) null,
 	phone char(11) null ,
 	birthday int null,
-	updateTime int not null,
-	createTime int not null,
+	updateTime bigint not null,
+	createTime bigint not null,
 	bookMoney double not null default 0 ,
 	bookBean double not null default 0,
 	lv int not null default 1,
+	identity int not null default 1,
 	state int not null default 0
 );
 
@@ -115,3 +116,10 @@ create table recharge_records(
 	state int not null 
 );
 
+create table sms_records(
+	smsId int not null auto_increment primary key,
+	phone char(11) not null ,
+	smsCode int(6) not null ,
+	type int not null default 1,
+	createTime int 
+);

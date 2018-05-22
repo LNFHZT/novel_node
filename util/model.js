@@ -59,8 +59,22 @@ class Mode {
                         return;
                     }
                 }
-                result = obj.success(result);
-                resolve(result);
+                let arr = [];
+                result.forEach(element => {
+                    let obj = {};
+                    for (const key in element) {
+
+                        if (element.hasOwnProperty(key)) {
+                            obj[key] = element[key];
+                        }
+                    }
+                    arr.push(obj);
+                });
+                if (arr.length == 1) {
+                    arr = arr[0];
+                }
+                arr = obj.success(arr);
+                resolve(arr);
             });
         })
     }

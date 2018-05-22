@@ -16,6 +16,7 @@
     "font-awesome": "^4.7.0",
     "nprogress": "^0.2.0",
     "vue": "^2.2.2",
+    "vue-axios": "^2.1.1",
     "vue-router": "^2.3.0",
     "vuex": "^2.0.0-rc.6"
   },

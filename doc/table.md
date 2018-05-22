@@ -17,6 +17,7 @@ user 用户表
 | bookMoney | double | true | 书币 |
 | bookBean | double | true | 书豆 |
 | lv | int | true | 等级 |
+| identity | int | true  | 身份默认普通用户 1 ，0是系统管理员
 | state| int | true | 状态 |
 
 book 书籍表
@@ -140,11 +141,21 @@ recharge_records 充值记录表
 -
 | 字段        | 类型    |  是否为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
-| rechargeId | int | true | 充值记录id |
+| rechargeId | int | true | 充值记录id primary |
 | userId | int | true | 用户id |
 | money | double | ture | 金额 | 
 | type | int | true | 充值类型 1 是书币 2 是书豆 3 是vip |
 | describe | varchar(100) | false | 记录描述（失败描述） |
 | createTime | int | true | 创建时间 |
 | state | int | true | 状态 0 成功 1 是失败 3是退款 4退款失败 |
+
+sms_records 短信记录表
+-
+| 字段        | 类型    |  是否为空 |  注释  |
+| --------   | -----:   | :----: |:----: |
+| smsId | int | true | 短信id primary |
+| phone | char 11 | true | 手机号 |  
+| smsCode | int 6 | true | 验证吗 |
+| type | int | true | 类型 默认1 验证码 | 
+| createTime | int | true |  创建时间 | 
 

@@ -7,17 +7,31 @@ class Util {
 
     encryptId(id) {
         //加密
-        return CryptoJS.AES.encrypt(id, CryptoJS.enc.Utf8.parse(key), {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-        });
+        let str;
+        try {
+            str = crypto.AES.encrypt(id, CryptoJS.enc.Utf8.parse(key), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+        } catch (error) {
+            console.error(error);
+            return id;
+        }
+        return str
     }
     decipheringId(id) {
         //解密
-        return CryptoJS.AES.decrypt(id, CryptoJS.enc.Utf8.parse(key), {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-        });
+        let str;
+        try {
+            str = crypto.AES.decrypt(id, CryptoJS.enc.Utf8.parse(key), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+        } catch (error) {
+            console.error(error);
+            return id;
+        }
+        return str
     }
 }
 
