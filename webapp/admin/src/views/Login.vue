@@ -55,6 +55,7 @@ export default {
             account: this.ruleForm2.account,
             passwd: this.ruleForm2.checkPass
           };
+          this.$router.push({ path: "/table" });
           this.axios
             .post("/api/admin/base/login", loginParams)
             .then(data => {
