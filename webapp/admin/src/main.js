@@ -15,6 +15,7 @@ import routes from './routes'
 
 // import Mock from './mock'
 // Mock.bootstrap();
+//  http://fontawesome.dashgame.com/
 import 'font-awesome/css/font-awesome.min.css'
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
