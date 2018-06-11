@@ -28,7 +28,7 @@
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 						<el-submenu :index="index+''" v-if="!item.leaf">
 							<template slot="title">
-								<i :class="item.iconCls"></i>
+								<i :class="item.iconCls" style="width:auto;"></i>
 								<span slot="title">{{item.name}}</span>
 							</template>
 							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>

@@ -1,14 +1,14 @@
 const express = require('express');
 const userIMP = require('../../model/userIMP');
 const Code = require('../../util/code');
-const AueryData = require('../../util/aueryData');
+const QueryData = require('../../util/queryData');
 const Util = require('../../util/util');
 let router = express.Router();
 
 // /api/admin/base
 
 router.post('/login', (req, res, next) => {
-    AueryData.getParam({
+    QueryData.getParam({
             account: {
                 type: 'String',
                 must: true,
@@ -46,7 +46,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/regist', (req, res, next) => {
-    AueryData.getParam({
+    QueryData.getParam({
             account: {
                 type: 'String',
                 must: true,
