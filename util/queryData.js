@@ -31,7 +31,7 @@ class QueryData {
         })
     }
 
-    static loopParam(obj, req, res, ) {
+    static loopParam(obj, req, res ) {
         let R = {},
             t = true;
         for (const item in obj) {
