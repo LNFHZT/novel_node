@@ -1,5 +1,18 @@
 <template>
-  <div ref="powerUser">
+  <section ref="powerUser">
+  <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+			<el-form :inline="true" :model="filters">
+				<el-form-item>
+					<el-input v-model="filters.name" placeholder="姓名"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" v-on:click="getUsers">查询</el-button>
+				</el-form-item>
+				<!-- <el-form-item>
+					<el-button type="primary" @click="handleAdd">新增</el-button>
+				</el-form-item> -->
+			</el-form>
+	</el-col>
   <el-table :data="powerUserList" stripe style="width: 100%">
       <el-table-column prop="name" label="姓名" width="180">
       </el-table-column>
@@ -18,7 +31,7 @@
 
       </el-table-column>
     </el-table>
-  </div>
+  </section>
   
  
 </template>
@@ -47,9 +60,8 @@ export default {
         .catch(_ => {});
     },
     changeIsEnable(obj) {
-      
       this.$loading({
-        target:this.$refs.powerUser,
+        target: this.$refs.powerUser,
         text: "修改中"
       });
       this.$message({

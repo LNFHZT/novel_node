@@ -17,8 +17,8 @@ let routes = [{
         component: resolve => require(['@/views/Home.vue'], resolve),
         iconCls: 'fa fa-user-circle-o', //图标样式class
         children: [{
-            path: '/userList',
-            component: resolve => require(['@/views/user/user_list.vue'], resolve),
+            path: '/user/list',
+            component: resolve => require(['@/views/user/list.vue'], resolve),
             name: '用户列表',
         }]
     },
@@ -28,9 +28,13 @@ let routes = [{
         component: resolve => require(['@/views/Home.vue'], resolve),
         iconCls: 'fa fa-user-circle-o', //图标样式class
         children: [{
-            path: '/powerUser',
-            component: resolve => require(['@/views/power/power_user.vue'], resolve),
+            path: '/power/user',
+            component: resolve => require(['@/views/power/user.vue'], resolve),
             name: '权限管理',
+        }, {
+            path: '/power/pages',
+            component: resolve => require(['@/views/power/pages.vue'], resolve),
+            name: '权限页面',
         }]
     },
     {
