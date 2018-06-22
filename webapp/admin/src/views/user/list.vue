@@ -62,7 +62,8 @@ export default {
   },
   methods: {
     //性别显示转换
-    formatSex: function(row, column) {
+    formatSex: function(row, column, cellValue, index) {
+			
       return row.sex == 1 ? "男" : row.sex == 0 ? "女" : "未知";
     },
     getUsers() {},
