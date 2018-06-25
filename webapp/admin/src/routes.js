@@ -47,6 +47,10 @@ let routes = [{
             path: '/power/pages',
             component: resolve => require(['@/views/power/pages.vue'], resolve),
             name: '权限页面',
+        },{
+            path: '/power/addIdentity',
+            component: resolve => require(['@/views/power/addIdentity.vue'], resolve),
+            name: '权限人员管理',
         }]
     },
     {

@@ -6,7 +6,6 @@
 					<el-button type="primary" @click="addPower=true">新增</el-button>
 				</el-form-item>
 			</el-form>
-		    
 	  </el-col>
     <el-col>
       <el-tree
@@ -33,7 +32,7 @@
       :visible.sync="addPower"
       width="30%"
      >
-      <el-form ref="form1" :model="form1" :inline="true" :rules="form1Rules" >
+      <el-form ref="form1" :model="form1"   label-width="100px" :rules="form1Rules" >
 				  <el-form-item label="页面名称" prop="name">
             <el-input v-model="form1.name"></el-input>
           </el-form-item>
