@@ -35,8 +35,7 @@ app.all('*', function (req, res, next) {
 
 // 所有带
 app.all(/\/check\//, (req, res, next) => {
-    console.log('检查是否登入');
-    if (!req.session.user) {
+    if (!req.session.sign) {
         return res.json(new Code({
             code: 2001
         }).return)

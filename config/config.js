@@ -1,7 +1,10 @@
    const config = {
        routeConfig: [{
-           apititle: '/api/admin/base',
+           apititle: '/admin/base',
            routeExample: require('../route/admin/base'),
+       }, {
+           apititle: '/admin/power',
+           routeExample: require('../route/admin/power'),
        }, {
            apititle: '/test/route/test',
            routeExample: require('../route/test/test'),

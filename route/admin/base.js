@@ -6,7 +6,6 @@ const Util = require('../../util/util');
 let router = express.Router();
 
 // /api/admin/base
-
 router.post('/login', (req, res, next) => {
     QueryData.getParam({
             account: {
@@ -19,12 +18,13 @@ router.post('/login', (req, res, next) => {
             },
         }, req, res)
         .then((data) => {
-            return userIMP.loginCheck(data.account, data.passwd)
+            return userIMP.adminLoginCheck(data.account, data.passwd)
         })
         .then(data => {
-            if (data.userId) {
-                data.userId = Util.encryptId(data.userId);
-            }
+            // if (data.userId) {
+            //     data.userId = Util.encryptId(data.userId);
+            // }
+            req.session.sign = true;
             req.session.user = {
                 userId: data.userId,
             }

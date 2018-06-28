@@ -25,6 +25,17 @@ class UserIMP {
     }
     /**
      * 
+     * @param {String} account <String> 账号
+     * @param {String} password <String> 密码
+     */
+    adminLoginCheck(account, password) {
+        return Mode.query({
+            sql: "SELECT * from `user` WHERE account= '" + account + "' and passwd= '" + password + "' and identity>0 ",
+            isFill: true,
+        })
+    }
+    /**
+     * 
      * @param {Array} obj 
      * @param {String} -account <String> 账号
      * @param {String} -password <String> 密码

@@ -1,8 +1,11 @@
 const express = require('express');
 let router = express.Router();
-
-router.post('/test', (req, res, next) => {
-
+//  /test/route/test
+router.post('/check/test', (req, res, next) => {
+    res.json({
+        code: 0,
+        msg: 'ok!'
+    })
 })
 
 module.exports = router;
