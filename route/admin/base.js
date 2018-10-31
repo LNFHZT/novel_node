@@ -3,9 +3,9 @@ const userIMP = require('../../model/userIMP');
 const Code = require('../../util/code');
 const QueryData = require('../../util/queryData');
 const Util = require('../../util/util');
-let router = express.Router();
+const router = express.Router();
 
-// /api/admin/base
+// /admin/base
 router.post('/login', (req, res, next) => {
     QueryData.getParam({
             account: {
@@ -21,12 +21,12 @@ router.post('/login', (req, res, next) => {
             return userIMP.adminLoginCheck(data.account, data.passwd)
         })
         .then(data => {
-            // if (data.userId) {
-            //     data.userId = Util.encryptId(data.userId);
-            // }
             req.session.sign = true;
             req.session.user = {
                 userId: data.userId,
+            }
+            if (data.userId) {
+                data.userId = Util.encrypt(data.userId);
             }
             res.json(new Code({
                 code: Code.codeMap().OK,
@@ -36,9 +36,19 @@ router.post('/login', (req, res, next) => {
             }).return)
         })
         .catch(data => {
+            console.error(data);
+            if (!data.code) {
+                data = new Code({
+                    code: 1000
+                }).return
+            }
             if (JSON.stringify(data) == '[]') {
                 data = new Code({
                     code: 2000
+                }).return
+            } else {
+                data = new Code({
+                    code: 1000
                 }).return
             }
             res.json(data);

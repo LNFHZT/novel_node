@@ -8,7 +8,7 @@ class PowerIMP {
     /**
      * 查询所有用户表
      */
-    queryUserAll() {
+    queryPowerAll() {
         return Mode.getData('select * from user')
     }
     

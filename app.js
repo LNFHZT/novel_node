@@ -21,15 +21,38 @@ app.use(session({
     },
 }));
 
+
+
 app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*')
+    res.header("Access-Control-Allow-Origisn", '*')
     res.header("Access-Control-Allow-Credentials", true) // 携带cookie
     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With")
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
     if (req.method == "OPTIONS") {
-        res.send(200) // 让options请求快速返回
-    } else {
-        next()
+        res.status(200); // 让options请求快速返回
+    }
+
+    //  404 处理
+    let t = true;
+    config.routeConfig.forEach(item => {
+        item.routeExample.stack.forEach(items => {
+            let route = `${item.apititle}${items.route.path}`;
+            if (route.includes(':')) {
+
+            } else if (req.path == route) {
+                t = false;
+                next();
+            }
+        })
+    });
+    if (t) {
+        res.status(200);
+        return res.json(new Code({
+            code: 1003,
+            data: {
+                errApi: req.path
+            }
+        }).return)
     }
 })
 
@@ -57,4 +80,5 @@ app.use((err, req, res, next) => {
     }).return)
     throw new Error(err);
 })
+
 app.listen(config.listen || 8000);

@@ -19,11 +19,15 @@ const codeMap = {
             success: false,
         },
         1002: {
-            code: 1001,
+            code: 1002,
             msg: "参数错误",
             success: false,
         },
-
+        1003: {
+            code: 1003,
+            msg: "404 未定义此接口",
+            success: false,
+        },
         // 业务错误
         2000: {
             code: 2000,

@@ -6,10 +6,10 @@ class UserIMP {
 
     }
     /**
-     * 查询所有用户表
+     * 查询所有普通用户
      */
     queryUserAll() {
-        return Mode.getData('select * from user')
+        return Mode.getData('select * from user where idType=0')
     }
     /**
      * 

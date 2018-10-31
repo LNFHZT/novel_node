@@ -11,14 +11,26 @@ class Util {
         //加密 可逆
         const cipher = crypto.createCipher('aes192', key);
         var crypted = cipher.update(data, 'utf8', 'hex');
-        crypted += cipher.final('hex');
+        try {
+            typeof data == 'string' ? data : String(data);
+            crypted += cipher.final('hex');
+        } catch (error) {
+            console.error(error);
+            return data;
+        }
         return crypted;
     }
     deciphering(data) {
         //解密 可逆
         const decipher = crypto.createDecipher('aes192', key);
         var decrypted = decipher.update(data, 'hex', 'utf8');
-        decrypted += decipher.final('utf8');
+        try {
+            typeof data == 'string' ? data : String(data);
+            decrypted += decipher.final('utf8');
+        } catch (error) {
+            console.error(error);
+            return data;
+        }
         return decrypted;
     }
     // 不可逆加密

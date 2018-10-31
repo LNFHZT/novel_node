@@ -12,7 +12,7 @@ create table user(
 	bookMoney double not null default 0 ,
 	bookBean double not null default 0,
 	lv int not null default 1,
-	identity int not null default 1,
+	idType int not null default 0,
 	state int not null default 0
 );
 

@@ -1,11 +1,10 @@
 <template>
-  
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
-    <el-form-item prop="account">
+  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container" >
+    <h3 class="title">系统登录      {{ruleForm2.error.account}}</h3>
+    <el-form-item prop="account" :error="ruleForm2.error.account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
-    <el-form-item prop="checkPass">
+    <el-form-item prop="checkPass" :error="ruleForm2.error.account">
       <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
@@ -25,7 +24,8 @@ export default {
       logining: false,
       ruleForm2: {
         account: "admin",
-        checkPass: "123456"
+        checkPass: "123456",
+        error: {}
       },
       rules2: {
         account: [
@@ -48,20 +48,24 @@ export default {
       var _this = this;
       this.$refs.ruleForm2.validate(valid => {
         if (valid) {
-          //_this.$router.replace('/table');
           this.logining = true;
-          //NProgress.start();
           var loginParams = {
             account: this.ruleForm2.account,
             passwd: this.ruleForm2.checkPass
           };
-          this.$router.push({ path: "/table" });
           this.axios
-            .post("/api/admin/base/login", loginParams)
+            .post("/admin/base/login", loginParams)
             .then(data => {
+              this.$store;
+              console.log(this.$store);
               this.$router.push({ path: "/table" });
             })
-            .catch(res => {})
+            .catch(res => {
+              console.log(res);
+              this.ruleForm2.error = {
+                account: res.msg
+              };
+            })
             .then(() => {
               this.logining = false;
             });

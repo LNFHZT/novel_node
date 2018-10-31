@@ -1,4 +1,4 @@
-let router = express.Router();
+const router = express.Router();
 
 router.post('/post/sms', (req, res, next) => {
     

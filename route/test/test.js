@@ -4,7 +4,6 @@ let router = express.Router();
 router.post('/check/test', (req, res, next) => {
     res.json({
         code: 0,
-        msg: 'ok!'
     })
 })
 

@@ -17,7 +17,7 @@ user 用户表
 | bookMoney | double | true | 书币 |
 | bookBean | double | true | 书豆 |
 | lv | int | true | 等级 |
-| identity | int | true  | 身份默认普通用户0 ，1是非普通用户
+| idType | int | true  | 身份默认普通用户0 ，1是非普通用户
 | state| int | true | 状态 |
 
 book 书籍表
