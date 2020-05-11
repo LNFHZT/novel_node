@@ -1,4 +1,16 @@
+import user from '../route/admin/user';
+import noProofAdmin from '../route/no_proof/admin';
 const config = {
+    routers: [
+        {
+            api: '/admin/check/user',
+            route: user,
+        },
+        {
+            api: '/admin',
+            route: noProofAdmin,
+        },
+    ],
     // routeConfig: [{
     //     api: '/common',
     //     route: require('../route/common/common'),

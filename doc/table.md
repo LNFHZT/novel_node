@@ -14,6 +14,7 @@ user 用户表
 | phone| char 11 | true | 手机号 |
 | birthday| int | false | 出生年月 |
 | createTime| bigint | true | 创建时间 |
+| updateTime| bigint | true | 更新时间 |
 | bookMoney | double | true | 书币 |
 | bookBean | double | true | 书豆 |
 | lv | int | true | 等级 |

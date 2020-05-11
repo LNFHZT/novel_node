@@ -5,8 +5,9 @@ import path from 'path';
 import Code from './util/code';
 import { json, urlencoded } from 'body-parser';
 import util from './util/util';
-import { UsersListAction } from './dao/userIMP';
+import Token from './util/token';
 import conn from './dbc';
+
 
 // 接口请求数据库，要在建立连接后  建立连接 和启动项目都是异步进行的
 conn.init();
@@ -37,7 +38,6 @@ app.all('*', (req: any, res: any, next: any) => {
     if (req.method == "OPTIONS") {
         res.status(200); // 让options请求快速返回
     }
-    console.log('接口请求中-----------------');
     next();
     //  404 处理
     // let t = true;
@@ -65,24 +65,29 @@ app.all('*', (req: any, res: any, next: any) => {
 
 
 // 所有带
-app.all(/\/check\//, (req: any, res: any, next: any) => {
-    if (!req.session.sign) {
-        return res.json(new Code({
-            code: 2001
-        }).return)
+app.all(/\/check\//, async (req: any, res: any, next: any) => {
+    console.log('*------------------');
+    try {
+        await Token.check(req.token);
+        next();
+    } catch (error) {
+        res.json({
+            tip: "登录态已失效，请重新登录"
+        })
+        return;
     }
-    next()
 })
 
 
-// config.routeConfig.forEach(item => {
-//     app.use(item.api, item.route);
-// });
+config.routers.forEach(item => {
+    app.use(item.api, item.route);
+});
 
 /**
  * 错误处理机制
  */
 app.use((err: any, req: any, res: any, next: any) => {
+    console.log('错误处理机制触发');
     res.status(200)
     res.json(new Code({
         code: Code.codeMap().SERVER_ERROR,
