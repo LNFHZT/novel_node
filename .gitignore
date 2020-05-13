@@ -1,5 +1,7 @@
 .idea
 node_modules
 .vscode
-.gitignore
-config/
+#.gitignore
+config/dbcConfig.js
+package-lock.json
+ormconfig.json

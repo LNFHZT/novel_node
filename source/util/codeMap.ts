@@ -1,4 +1,4 @@
-const codeMap = {
+export default {
     SERVER_ERROR: 1000,
     DATABASE_ERROR: 1001,
     OK: 0,
@@ -41,4 +41,3 @@ const codeMap = {
         }
     }
 }
-module.exports = codeMap
