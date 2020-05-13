@@ -1,0 +1,118 @@
+/* 公共样式 */
+// html{font-size: calc(100vw / 3.75);}
+$link: #50a0fe;
+html {
+  font-size: 16px;
+}
+.fs0 {
+  font-size: 0;
+}
+.oh {
+  overflow: hidden;
+}
+.dib {
+  display: inline-block;
+}
+.dib-vt {
+  display: inline-block;
+  vertical-align: top;
+}
+.dib-vm {
+  display: inline-block;
+  vertical-align: middle;
+}
+.dib-vb {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.bg-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+}
+
+.ellipsis-1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ellipsis-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.ellipsis-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.a-link {
+  cursor: pointer;
+}
+.a-disabled {
+  cursor: not-allowed;
+}
+.c-link {
+  color: $link;
+}
+// 按钮
+.com_button{
+  height:40px;
+  padding: 0 15px;
+  border: 1px solid #F7525A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:12px;
+  color: #F7525A;
+  border-radius:4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  &:hover{
+    opacity: 0.8;
+  }
+}
+
+.content-box {
+  position: absolute;
+  left: 250px;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  padding-bottom: 30px;
+  -webkit-transition: left .3s ease-in-out;
+  transition: left .3s ease-in-out;
+  background: #f0f0f0;
+}
+
+.content {
+  width: auto;
+  height: 100%;
+  padding: 10px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+
+.content-collapse {
+  left: 65px;
+}
+
+.container {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
