@@ -1,15 +1,19 @@
 import { getConnection, getRepository } from "typeorm";
-import User from "../model/user";
+import User from "../entity/user";
 
 /**
  * @description 获取所有普通用户
  */
-export const getOrdinaryUserList = () => {
+export const getOrdinaryUserList = (page = { pageSize: 10, pageNo: 0 }) => {
+    console.log(page);
     return getRepository(User).find({
         select: ["userId", "account", "nicName", "headerImg",
             "sex", "phone", "birthday", "createTime",
             "bookMoney", "bookBean", "lv", "idType",
-            "state"]
+            "state"],
+        where: { idType: 0 },
+        skip: page.pageNo,
+        take: page.pageSize
     });
 }
 

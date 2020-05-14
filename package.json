@@ -16,6 +16,7 @@
     "mysql": "^2.15.0",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
+    "tslib": "1.11.2",
     "typeorm": "^0.2.24"
   },
   "devDependencies": {

@@ -11,19 +11,8 @@ const config = {
             route: noProofAdmin,
         },
     ],
-    // routeConfig: [{
-    //     api: '/common',
-    //     route: require('../route/common/common'),
-    // }, {
-    //     api: '/test/route/test',
-    //     route: require('../route/test/test'),
-    // },],
     listen: 3000,
+    check: false
 }
-/**
- * {
-           api: '/api/user',
-           route: require('../route/user'),
-       }
- */
+
 export default config;

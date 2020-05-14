@@ -1,6 +1,9 @@
 import codeMap from './codeMap';
 class Code {
-    return: any
+    data: any
+    code: number = 0;
+    msg: string = "OK";
+    success: boolean = true;
     static codeMap() {
         return codeMap;
     }
@@ -17,7 +20,10 @@ class Code {
         if (!obj.data) {
             obj.data = {};
         }
-        this.return = obj
+        this.code = obj.code;
+        this.msg = obj.msg;
+        this.success = obj.success;
+        this.data = obj.data;
     }
 }
 

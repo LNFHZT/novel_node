@@ -4,31 +4,13 @@
 ```
 novel_node
  ┣ doc              文档目录 里面放置了sql 文件和 表设计
- ┃ ┣ novel.sql
- ┃ ┗ table.md
  ┣ source           源码文件 开发的代码
  ┃ ┣ config         配置目录 配置路由
- ┃ ┃ ┗ config.ts
  ┃ ┣ dao            实现数据的dao
- ┃ ┃ ┗ userIMP.ts
  ┃ ┣ dbc            连接数据库
- ┃ ┃ ┗ index.ts
- ┃ ┣ model          model 层
- ┃ ┃ ┗ user.ts
+ ┃ ┣ entity         实体类 
  ┃ ┣ route          路由文件夹
- ┃ ┃ ┣ admin
- ┃ ┃ ┃ ┗ user.ts
- ┃ ┃ ┣ common
- ┃ ┃ ┃ ┗ common.ts
- ┃ ┃ ┣ no_proof
- ┃ ┃ ┃ ┗ admin.ts
- ┃ ┃ ┗ test
- ┃ ┃ ┃ ┗ test.js
  ┃ ┣ util           工具类
- ┃ ┃ ┣ code.ts
- ┃ ┃ ┣ codeMap.ts
- ┃ ┃ ┣ token.ts
- ┃ ┃ ┗ util.ts
  ┃ ┗ app.ts         主入口文件
  ┣ webapp           静态资源目录
  ┃ ┗ index.html
@@ -65,3 +47,15 @@ npm run serve
     "entities": ["source/model/*.ts"]
 }
 ``` 
+tslib  因更新依赖导致 出现 项目无法运行 提示错误
+```
+TypeError: Cannot set property EntityManager of #<Object> which has only a getter
+```
+临时解决办法：在package.json 里面 新增旧版本 tslib 依赖替换新更新依赖
+然后删除node_modules 里面的 tslib 
+```
+<!-- 执行 在项目的 package.json 新增tslib -->
+npm i tslib@1.11.2 --save
+<!-- 修改package.json "tslib": "^1.11.2" 改为  "tslib": "1.11.2" -->
+<!-- 删除 node_modules 非1.11.2 版本的 tslib -->
+```

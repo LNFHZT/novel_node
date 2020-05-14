@@ -40,42 +40,45 @@ app.all('*', (req: any, res: any, next: any) => {
     }
     next();
     //  404 处理
-    // let t = true;
-    // config.routeConfig.forEach(item => {
-    //     item.routeExample.stack.forEach(items => {
-    //         let route = `${item.apititle}${items.route.path}`;
-    //         if (route.includes(':')) {
-    //         } else if (req.path == route) {
-    //             t = false;
-    //             next();
-    //         }
-    //     })
-    // });
-    // if (t) {
-    //     res.status(200);
-    //     return res.json(new Code({
-    //         code: 1003,
-    //         data: {
-    //             errApi: req.path
-    //         }
-    //     }).return)
-    // }
+    let t = true;
+    config.routers.forEach(item => {
+        item.route.stack.forEach(items => {
+            let route = `${item.api}${items.route.path}`;
+            if (route.includes(':')) {
+            } else if (req.path == route) {
+                t = false;
+                next();
+            }
+        })
+    });
+    if (t) {
+        res.status(200);
+        return res.json(new Code({
+            code: 1003,
+            data: {
+                errApi: req.path
+            }
+        }))
+    }
 })
-
 
 
 // 所有带
 app.all(/\/check\//, async (req: any, res: any, next: any) => {
-    console.log('*------------------');
-    try {
-        await Token.check(req.token);
+    if (!config.check) {
         next();
-    } catch (error) {
-        res.json({
-            tip: "登录态已失效，请重新登录"
-        })
-        return;
+    } else {
+        try {
+            await Token.check(req.token);
+            next();
+        } catch (error) {
+            res.json({
+                tip: "登录态已失效，请重新登录"
+            })
+            return;
+        }
     }
+
 })
 
 
@@ -91,7 +94,7 @@ app.use((err: any, req: any, res: any, next: any) => {
     res.status(200)
     res.json(new Code({
         code: Code.codeMap().SERVER_ERROR,
-    }).return)
+    }))
     throw new Error(err);
 })
 

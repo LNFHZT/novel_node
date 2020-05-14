@@ -1,6 +1,6 @@
 import express from 'express';
 import { getOrdinaryUserList, registerAdminUser, singleCheckUser } from '../../dao/userIMP';
-import User from '../../model/user';
+import User from '../../entity/user';
 const router = express.Router();
 
 
@@ -9,7 +9,9 @@ const router = express.Router();
  * 获取所有普通用户
  */
 router.get('/get/info/list', async (req: any, res: any) => {
-    let data = await getOrdinaryUserList();
+    let { page } = req.body;
+    console.log(page);
+    let data = await getOrdinaryUserList(page);
     res.json({
         data: data,
     })
