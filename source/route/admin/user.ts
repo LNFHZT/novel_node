@@ -1,24 +1,63 @@
 import express from 'express';
-import { getOrdinaryUserList, registerAdminUser, singleCheckUser } from '../../dao/userIMP';
+import { getOrdinaryUserList, registerAdminUser, singleCheckUser, deleteUser, updateUser } from '../../dao/userIMP';
 import User from '../../entity/user';
+import Code from '../../util/code';
+import Page from '../../util/page';
 const router = express.Router();
 
 
 /**
- * @description /admin/user/get/info/list
+ * @description /admin/check/user/get/info/list
  * 获取所有普通用户
  */
 router.get('/get/info/list', async (req: any, res: any) => {
     let { page } = req.body;
-    console.log(page);
     let data = await getOrdinaryUserList(page);
-    res.json({
-        data: data,
-    })
+    res.json(new Code({
+        data: new Page({
+            ...page,
+            data
+        }),
+    }))
 })
 
 /**
- * @description /admin/user/register
+ * @description 删除用户
+ */
+router.delete('/delete/user/:userId', async (req: any, res: any) => {
+    let { userId } = req.body;
+    let data = await deleteUser(userId);
+    res.json(new Code({
+        data: data,
+    }))
+})
+
+/**
+ * @description 更新用户数据 / 修改
+ */
+router.put('/update/:userId', async (req: any, res: any) => {
+    let { userId, update } = req.body;
+    update.updateTime = new Date().getTime();
+    let data = await updateUser(userId, update)
+    res.json(new Code({
+        data,
+    }))
+})
+
+/**
+ * @description /admin/check/user/get/info/:userId 单查用户 
+ * 
+ */
+router.get('/get/info/:userId', async (req: any, res: any) => {
+    let { userId } = req.body;
+    let data = await singleCheckUser({ userId: userId })
+    res.json(new Code({
+        data,
+    }))
+})
+
+/**
+ * @description /admin/check/user/register
  * 注册管理系统用户
  */
 router.post('/register', async (req: any, res: any, next: any) => {
@@ -34,9 +73,9 @@ router.post('/register', async (req: any, res: any, next: any) => {
     user.nicName = nicName || 'test';
     let list = await singleCheckUser({ account: user.account });
     if (list.length) {
-        res.json({
-            tips: "用户名已被注册",
-        })
+        res.json(new Code({
+            code: 2002
+        }))
         return;
     }
     try {
@@ -44,8 +83,8 @@ router.post('/register', async (req: any, res: any, next: any) => {
     } catch (error) {
         throw error;
     }
-    res.json({
-        data: {},
-    })
+    res.json(new Code({}))
 })
+
+
 export default router

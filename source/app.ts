@@ -37,8 +37,8 @@ app.all('*', (req: any, res: any, next: any) => {
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
     if (req.method == "OPTIONS") {
         res.status(200); // 让options请求快速返回
+        next();
     }
-    next();
     //  404 处理
     let t = true;
     config.routers.forEach(item => {

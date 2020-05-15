@@ -38,6 +38,11 @@ export default {
             code: 2001,
             msg: "session过期，请重新登入",
             success: false,
+        },
+        2002: {
+            code: 2002,
+            msg: "用户名已被注册",
+            success: false,
         }
     }
 }

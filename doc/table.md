@@ -3,7 +3,7 @@ tables
 
 user 用户表
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | userId | int | true | 用户id  primary |
 | account | varchar 20| true | 账号/手机号 |
@@ -19,11 +19,11 @@ user 用户表
 | bookBean | double | true | 书豆 |
 | lv | int | true | 等级 |
 | idType | int | true  | 身份默认普通用户0 ，1是非普通用户
-| state| int | true | 状态 |
+| state| int | true | 状态  0 正常 -1 删除过的用户 |
 
 book 书籍表
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | bookId | int | true | 书本id primary |
 | bookName | varchar 40 | true | 书名 |
@@ -37,7 +37,7 @@ book 书籍表
 
 article 文章表
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | articleId | int | true | 章节ID primary |
 | articleTitle | varchar 100 | true | 章节标题 |
@@ -49,7 +49,7 @@ article 文章表
 
 author 作者表
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | authorId | int | true | 作者id  primary | 
 | authorName | varchar 40 | true | 作者名 |
@@ -57,7 +57,7 @@ author 作者表
 
 b_type 分类表
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | bTypeId | int | true | 分类id  primary |
 | typeName | varchar 20 | true | 分类名称 |
@@ -68,7 +68,7 @@ b_type 分类表
 
 book_type 分类书籍中间表
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | btId | int | true | 中间表id primary |
 | bookId | int | true | 书id |
@@ -76,14 +76,14 @@ book_type 分类书籍中间表
 
 rule 规则表 (待定)
 -
-| 字段        | 类型    |  是否为空  |  注释  |
+| 字段        | 类型    |  是否不为空  |  注释  |
 | --------   | -----:   | :----: |:----: |
 | hotBorder | int | false | 热门边界 |
 | newBook | int | false | 多少天内算新书 |
 
 b_comment 评论表
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | commentId | int | true | 评论id  primary|
 | bookId | int | true | 书id |
@@ -96,7 +96,7 @@ b_comment 评论表
 
 comment_record 评论记录
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | cRecordId | int | true | 记录id |
 | userId | int | true | 用户id primary | 
@@ -106,7 +106,7 @@ comment_record 评论记录
 
 book_shelf_records 书架书籍记录表
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | bsRecordsId| int | true | 中间表id  primary|
 | userId | int | true | 用户id 书架就是用户id |
@@ -116,7 +116,7 @@ book_shelf_records 书架书籍记录表
 
 read_book_records 看书浏览记录
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | rbrId | int | true | 浏览记录id  primary|
 | bookId | int | true | 书本id |
@@ -127,7 +127,7 @@ read_book_records 看书浏览记录
 
 vip  vip表
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | vipId | int | true | vipId primary|
 | userId | int | true | 用户id |
@@ -140,7 +140,7 @@ vip  vip表
 
 recharge_records 充值记录表
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | rechargeId | int | true | 充值记录id primary |
 | userId | int | true | 用户id |
@@ -152,7 +152,7 @@ recharge_records 充值记录表
 
 sms_records 短信记录表
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | smsId | int | true | 短信id primary |
 | phone | char 11 | true | 手机号 |  
@@ -162,7 +162,7 @@ sms_records 短信记录表
 
 user_power 权限表
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | upId | int | true | 权限表id primary |
 | userId | int | true | 用户id |  
@@ -173,7 +173,7 @@ user_power 权限表
 
 power_identity 权限身份
 -
-| 字段        | 类型    |  是否为空 |  注释  |
+| 字段        | 类型    |  是否不为空 |  注释  |
 | --------   | -----:   | :----: |:----: |
 | piId | int | true | 权限表id primary |
 | piName | int | true | 用户id |  
