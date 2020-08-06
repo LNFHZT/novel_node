@@ -11,37 +11,37 @@
       router
     >
       <template v-for="item in items">
-        <template v-if="item.subs">
-          <el-submenu :index="item.index" :key="item.index">
+        <template v-if="item.children&&item.children.length">
+          <el-submenu :index="item.path" :key="item.path">
             <template slot="title">
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
+              <i :class="item.meta.icon"></i>
+              <span slot="title">{{ item.meta.title }}</span>
             </template>
-            <template v-for="subItem in item.subs">
+            <template v-for="subItem in item.children">
               <el-submenu
-                v-if="subItem.subs"
-                :index="subItem.index"
-                :key="subItem.index"
+                v-if="subItem.children&&subItem.children.length"
+                :index="subItem.path"
+                :key="subItem.path"
               >
-                <template slot="title">{{ subItem.title }}</template>
+                <template slot="title">{{ subItem.meta.title }}</template>
                 <el-menu-item
-                  v-for="(threeItem,i) in subItem.subs"
+                  v-for="(threeItem,i) in subItem.children"
                   :key="i"
-                  :index="threeItem.index"
-                >{{ threeItem.title }}</el-menu-item>
+                  :index="`${threeItem.path}`"
+                >{{ threeItem.meta.title }}</el-menu-item>
               </el-submenu>
               <el-menu-item
                 v-else
-                :index="subItem.index"
-                :key="subItem.index"
-              >{{ subItem.title }}</el-menu-item>
+                :index="`${subItem.path}`"
+                :key="subItem.path"
+              >{{ subItem.meta.title }}</el-menu-item>
             </template>
           </el-submenu>
         </template>
         <template v-else>
-          <el-menu-item :index="item.index" :key="item.index">
-            <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}</span>
+          <el-menu-item :index="item.path" :key="item.path">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{ item.meta.title }}</span>
           </el-menu-item>
         </template>
       </template>
@@ -51,54 +51,23 @@
 
 <script>
 import bus from "./bus";
+import router from "@/router/router";
 export default {
   data() {
     return {
-      collapse: false,
-      items: [
-        {
-          icon: "el-icon-s-home",
-          index: "home",
-          title: "系统首页"
-        },
-        {
-          icon: "el-icon-s-platform",
-          index: "UserManage",
-          title: "用户管理",
-          subs: [
-            {
-              index: "UserManage",
-              title: "用户列表"
-            }
-          ]
-        },
-        {
-          icon: "el-icon-s-platform",
-          index: "test1",
-          title: "测试页面一",
-          subs: [
-            {
-              index: "test11",
-              title: "测试页面一一"
-            }
-          ]
-        },
-        {
-          icon: "el-icon-s-platform",
-          index: "test2",
-          title: "测试页面二"
-        },
-        {
-          icon: "el-icon-s-platform",
-          index: "test3",
-          title: "测试页面三"
-        }
-      ]
+      collapse: false
+      // items: router
     };
   },
   computed: {
     onRoutes() {
-      return this.$route.path.replace("/", "");
+      return this.$route.path;
+    },
+    items() {
+      let arr = [],
+        data = JSON.parse(JSON.stringify(router));
+      arr = this.format(data);
+      return arr;
     }
   },
   created() {
@@ -107,6 +76,19 @@ export default {
       this.collapse = msg;
       bus.$emit("collapse-content", msg);
     });
+  },
+  methods: {
+    format(router) {
+      return router.filter(item => {
+        if (!item.meta.nav) {
+          return false;
+        }
+        if (item.children && item.children.length) {
+          item.children = this.format(item.children);
+        }
+        return item.meta.nav;
+      });
+    }
   }
 };
 </script>

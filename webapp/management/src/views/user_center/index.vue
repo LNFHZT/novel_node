@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import api from "@/plugins/api";
 export default {
   data() {
     return {
@@ -78,7 +79,7 @@ export default {
       }
     },
     async getData() {
-      let data = await this.$fetch.get("/admin/check/user/get/info/list", {
+      let data = await this.$fetch.get(this.$api.reqGetUserList, {
         page: {
           pageSize: 10,
           pageNo: 0
