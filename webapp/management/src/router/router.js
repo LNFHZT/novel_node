@@ -48,7 +48,7 @@ export default [
             {
                 path: '/examine',
                 name: 'bookCenterExamine',
-                component: () => import('@/views/user_center/index.vue'),
+                component: () => import('@/views/book_center/examine.vue'),
                 meta: { title: '书籍审核', nav: true },
             }
         ]
