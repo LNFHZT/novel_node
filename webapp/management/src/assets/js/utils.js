@@ -170,7 +170,6 @@ export function getWXCode({ appid = store.state.appid, redirectUrl, scope = 'sns
   if (!redirectUrl) {
     redirectUrl = `${location.origin + location.pathname}#${store.state.myApp.$route.fullPath}`
   }
-  // redirectUrl = 'https://sports.api.ibumobile.com'
   let _url = encodeURIComponent(redirectUrl)
   location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${_url}&response_type=code&scope=${scope}&state=STATE#wechat_redirect`
 }

@@ -61,19 +61,19 @@ export default [
             {
                 path: '/list',
                 name: 'pageCenterList',
-                component: () => import('@/views/user_center/index.vue'),
+                component: () => import('@/views/page_center/index.vue'),
                 meta: { title: '微页面列表', nav: true },
             },
             {
                 path: '/advert',
                 name: 'pageCenterAdvert',
-                component: () => import('@/views/user_center/index.vue'),
+                component: () => import('@/views/page_center/advert.vue'),
                 meta: { title: '广告', nav: true },
             },
             {
                 path: '/banner',
                 name: 'pageCenterBanner',
-                component: () => import('@/views/user_center/index.vue'),
+                component: () => import('@/views/page_center/banner.vue'),
                 meta: { title: '轮播', nav: true },
             }
         ]
